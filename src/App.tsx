@@ -10,6 +10,15 @@ function App(): ReactElement {
     const [todos, setTodos] = useState<TodoInterface[]>([]);
     const [filter, setFilter] = useState<FilterEnum>(FilterEnum.ALL);
 
+    const getInfo = (): string | null => {
+        if (todos.length > 0) {
+            return 'Double click on text to edit';
+        }
+        return null;
+    };
+
+    const info = getInfo();
+
     const getVisibleTodos = (): TodoInterface[] => {
         if (filter === FilterEnum.ACTIVE) {
             return todos.filter((todo: TodoInterface) => !todo.isCompleted);
@@ -71,6 +80,7 @@ function App(): ReactElement {
             <Head
                 addTodo={handleAddTodo}
                 toggleComplete={handleToggleComplete}
+                info={info}
             />
             <Main
                 todos={visibleTodos}
